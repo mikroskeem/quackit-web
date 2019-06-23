@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+        <script src="wasm_exec.js"></script>
+        <script>
+        const go = new Go();
+        WebAssembly.instantiateStreaming(fetch("main.wasm"), go.importObject).then((result) => {
+                go.run(result.instance);
+        });
+        </script>
+        <style>
+        pre#parsed {
+            word-wrap: break-word;
+            white-space: pre-wrap;
+        }
+        </style>
+    </head>
+    <body>
+        <div>
+            <p>Configuration file:</p>
+            <textarea id="config"></textarea>
+            <br>
+            Minify: <input type="checkbox" id="minify" />
+            <br>
+            <button id="configsubmit">Validate</button>
+        </div>
+        <div>
+            <p>Parsed:</p>
+            <pre id="parsed"></pre>
+        </div>
+    </body>
+</html>
